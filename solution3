@@ -1,0 +1,34 @@
+CREATE TABLE Books (
+    book_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(50),
+    author VARCHAR(50),
+    genre VARCHAR(50),
+    publication_year INT,
+    price DECIMAL(8, 2));
+INSERT INTO Books values
+    (25,'Book 1', 'aarthi', 'Classic', 1813, 9.99),
+    (27,'Book 2', 'keerthi', 'Fiction', 1960, 12.50),
+    (56,'Book 3', 'preethi', 'Classic', 1925, 8.75),
+    (67,'Book 4', 'shruthi', 'Science Fiction', 1949, 10.25),
+    (78,'Book 5', 'Shreya', 'Fiction', 1951, 7.99);
+SELECT * FROM Books;
+SELECT * FROM Books WHERE title = '1984';
+UPDATE Books SET price = 9.99 WHERE title = 'Book 3';
+DELETE FROM Books WHERE title = 'Book 5';
+SELECT AVG(price) AS average_price FROM Books;
+-- Create the Authors table
+CREATE TABLE Author(
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(100),book_id INT,
+    constraint fk_book_id foreign key(book_id) REFERENCES Books(book_id));
+insert into author values
+    (34,'Preethi',56),
+    (78,'aarthi',29),
+    (98,'shreya',25);
+select Books.book_id,Books.title,Book.author,Book.genre,Book.publication_year,Book_price from Books;
+    -- Add a foreign key constraint in the Books table referencing the Authors table
+ALTER TABLE Books ADD COLUMN author_id INT;
+ALTER TABLE Books ADD FOREIGN KEY (author_id) REFERENCES Authors(author_id);
+SELECT Books.title, Authors.author_name
+FROM Books
+JOIN Authors ON Books.author_id = Authors.author_id;
